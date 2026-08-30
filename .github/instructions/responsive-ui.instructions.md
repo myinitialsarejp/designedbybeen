@@ -10,7 +10,8 @@ applyTo: "**/*.{ts,tsx,css}"
 - Use responsive grid or flex layouts that collapse intentionally, for example `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`.
 - Give controls stable, touch-friendly dimensions. Interactive targets should be at least 44 by 44 CSS pixels when practical.
 - Use semantic HTML and preserve keyboard access, visible focus states, labels, and sufficient color contrast. Do not convey information by color alone.
-- Use shadcn UI components and the semantic theme tokens in `app/theme.css` before creating custom controls or one-off colors.
+- Prefer installed shadcn UI components over entirely custom UI components. When a needed primitive is absent and shadcn provides one, add it with the shadcn CLI before implementing a custom equivalent.
+- Build a custom component only when the design or behavior is not represented by shadcn UI; compose it from shadcn primitives and the semantic theme tokens in `app/theme.css` where possible. Do not create one-off colors or duplicate shadcn controls.
 - Make images responsive. Use `next/image` with `sizes`; for responsive media, prefer a fixed-aspect-ratio wrapper with `fill` and `object-cover` over hardcoded desktop dimensions.
 - Do not scale type with viewport width. Use the shared type scale, readable line heights, and responsive layout changes instead.
 - Design navigation for small screens from the start. Do not compress desktop navigation into a narrow viewport; use an accessible disclosure, Sheet, or Drawer at smaller breakpoints.

@@ -1,18 +1,28 @@
 import type { Metadata } from "next";
 
 import { PagePlaceholder } from "@/components/page-placeholder";
+import { ProjectGrid } from "@/components/project-grid";
+import { sanityFetch } from "@/lib/sanity/live";
+import { PROJECTS_BY_CATEGORY_QUERY } from "@/lib/sanity/queries";
 
 export const metadata: Metadata = {
   title: "Commercial",
   description: "Commercial design work.",
 };
 
-export default function CommercialPage() {
+export default async function CommercialPage() {
+  const { data: projects } = await sanityFetch({
+    query: PROJECTS_BY_CATEGORY_QUERY,
+    params: { category: "commercial" },
+  });
+
   return (
     <PagePlaceholder
       eyebrow="Portfolio"
       title="Commercial"
-      description="Commercial design projects will be showcased here."
-    />
+      description="Commercial design projects."
+    >
+      <ProjectGrid projects={projects} />
+    </PagePlaceholder>
   );
 }

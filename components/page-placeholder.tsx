@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import { Card, CardContent } from "@/components/ui/card";
+
 type PagePlaceholderProps = {
   eyebrow?: string;
   title: string;
@@ -14,7 +16,7 @@ export function PagePlaceholder({
   children,
 }: PagePlaceholderProps) {
   return (
-    <section className="mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+    <section className="mx-auto w-full max-w-screen-2xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <div className="max-w-2xl">
         {eyebrow && (
           <p className="text-sm font-medium uppercase tracking-wide text-foreground-muted">
@@ -36,12 +38,14 @@ export function PagePlaceholder({
       ) : (
         <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: 6 }).map((_, index) => (
-            <div
+            <Card
               key={index}
-              className="flex min-h-48 items-center justify-center rounded-lg border border-dashed border-border bg-surface-muted p-6 text-sm text-foreground-muted"
+              className="min-h-48 justify-center rounded-lg border-dashed bg-surface-muted py-0"
             >
-              Placeholder content
-            </div>
+              <CardContent className="p-6 text-sm text-foreground-muted">
+                Placeholder content
+              </CardContent>
+            </Card>
           ))}
         </div>
       )}

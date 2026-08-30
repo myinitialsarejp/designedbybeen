@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
@@ -13,12 +14,22 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex w-full max-w-screen-2xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
         <Link
           href="/"
-          className="rounded-md text-lg font-semibold tracking-tight text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex min-h-12 min-w-0 shrink-0 items-center gap-3 rounded-md pr-1 text-lg font-semibold tracking-tight text-foreground outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          {siteConfig.name}
+          <span className="flex size-12 shrink-0 items-center justify-center overflow-hidden sm:size-14">
+            <Image
+              src="/BB.svg"
+              alt=""
+              width={576}
+              height={576}
+              className="size-full scale-[3]"
+              priority
+            />
+          </span>
+          <span className="truncate">{siteConfig.name}</span>
         </Link>
 
         {/* Desktop navigation */}
@@ -90,7 +101,7 @@ export function SiteHeader() {
           aria-label="Mobile"
           className="border-t border-border bg-background md:hidden"
         >
-          <ul className="mx-auto flex w-full max-w-7xl flex-col px-4 py-3 sm:px-6">
+          <ul className="mx-auto flex w-full max-w-screen-2xl flex-col px-4 py-3 sm:px-6">
             {mainNav.map((item) => (
               <li key={item.href} className="py-1">
                 <Link

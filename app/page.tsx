@@ -2,11 +2,12 @@ import Link from "next/link";
 
 import { mainNav, siteConfig } from "@/lib/site";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
   return (
     <div>
-      <section className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
+      <section className="mx-auto w-full max-w-screen-2xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
         <div className="max-w-2xl">
           <p className="text-sm font-medium uppercase tracking-wide text-foreground-muted">
             {siteConfig.legalName}
@@ -29,26 +30,28 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
+      <section className="mx-auto w-full max-w-screen-2xl px-4 pb-20 sm:px-6 lg:px-8">
         <h2 className="text-xl font-semibold tracking-tight text-foreground">
           Explore
         </h2>
         <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {mainNav.map((item) => (
             <li key={item.href}>
-              <Link
-                href={item.href}
-                className="flex h-full min-h-32 flex-col justify-between rounded-lg border border-border bg-surface p-6 transition-colors hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-              >
-                <span className="text-lg font-medium text-foreground">
-                  {item.title}
-                </span>
-                {item.children && (
-                  <span className="mt-3 text-sm text-foreground-muted">
-                    {item.children.map((child) => child.title).join(" · ")}
-                  </span>
-                )}
-              </Link>
+              <Card className="h-full min-h-32 gap-0 overflow-hidden rounded-lg py-0 transition-colors hover:bg-accent">
+                <Link
+                  href={item.href}
+                  className="flex h-full min-h-32 flex-col justify-between p-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
+                >
+                  <CardTitle className="text-lg text-foreground">
+                    {item.title}
+                  </CardTitle>
+                  {item.children && (
+                    <span className="mt-3 text-sm text-foreground-muted">
+                      {item.children.map((child) => child.title).join(" · ")}
+                    </span>
+                  )}
+                </Link>
+              </Card>
             </li>
           ))}
         </ul>

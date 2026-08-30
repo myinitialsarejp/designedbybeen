@@ -1,0 +1,17 @@
+import { defineQuery } from "next-sanity";
+
+export const PROJECTS_BY_CATEGORY_QUERY = defineQuery(
+  `*[_type == "project" && category == $category] | order(publishedAt desc){ _id, title, slug, summary, coverImage }`
+);
+
+export const PROJECT_QUERY = defineQuery(
+  `*[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, coverImage, gallery, body }`
+);
+
+export const JOURNAL_LIST_QUERY = defineQuery(
+  `*[_type == "journal" && defined(slug.current)] | order(publishedAt desc){ _id, title, slug, excerpt, coverImage, publishedAt }`
+);
+
+export const JOURNAL_POST_QUERY = defineQuery(
+  `*[_type == "journal" && slug.current == $slug][0]{ _id, title, body, coverImage, publishedAt }`
+);

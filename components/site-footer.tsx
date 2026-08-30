@@ -37,7 +37,7 @@ export function SiteFooter() {
     <footer className="mt-auto border-t border-border bg-background">
 
       <div className="border-t border-border">
-        <div className="mx-auto flex w-full max-w-7xl flex-col-reverse items-center gap-4 px-4 py-6 sm:flex-row sm:justify-between sm:px-6 lg:px-8">
+        <div className="mx-auto flex w-full max-w-screen-2xl flex-col-reverse items-center gap-4 px-4 py-6 sm:flex-row sm:justify-between sm:px-6 lg:px-8">
           <p className="text-center text-sm text-foreground-muted">
             &copy; {year} {siteConfig.legalName}. All rights reserved.
           </p>
