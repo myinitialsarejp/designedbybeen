@@ -1,6 +1,6 @@
 # Designed By Been
 
-Portfolio website for Designed By Been, operated by Benji Dunn LLC.
+Portfolio website for Designed By Been, owned and operated by Benji Dunn LLC. 
 
 ## Development
 
