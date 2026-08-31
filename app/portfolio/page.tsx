@@ -27,7 +27,7 @@ export default function PortfolioPage() {
       <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {portfolio?.children?.map((child) => (
           <li key={child.href}>
-            <Card className="min-h-40 justify-end gap-0 overflow-hidden rounded-lg py-0 transition-colors hover:bg-accent">
+            <Card className="min-h-40 justify-end gap-0 overflow-hidden rounded-lg py-0 transition-colors hover:border-foreground/30">
               <Link
                 href={child.href}
                 className="flex min-h-40 items-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"

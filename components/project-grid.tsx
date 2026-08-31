@@ -22,7 +22,7 @@ export function ProjectGrid({
     <ul className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {projects.map((project) => (
         <li key={project._id}>
-          <Card className="h-full gap-0 overflow-hidden rounded-lg py-0 transition-colors hover:bg-accent">
+          <Card className="h-full gap-0 overflow-hidden rounded-lg py-0 transition-colors hover:border-foreground/30">
             <Link
               href={`/portfolio/project/${project.slug?.current}`}
               className="group flex h-full flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"

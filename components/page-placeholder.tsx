@@ -19,7 +19,7 @@ export function PagePlaceholder({
     <section className="mx-auto w-full max-w-screen-2xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
       <div className="max-w-2xl">
         {eyebrow && (
-          <p className="text-sm font-medium uppercase tracking-wide text-foreground-muted">
+          <p className="font-mono text-sm font-medium uppercase tracking-caption text-foreground-muted">
             {eyebrow}
           </p>
         )}

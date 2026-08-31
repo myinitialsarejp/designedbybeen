@@ -46,7 +46,7 @@ export function SiteHeader() {
                   </Link>
                   <ul
                     className={cn(
-                      "invisible absolute left-0 top-full min-w-48 rounded-md border border-border bg-popover p-1 opacity-0 shadow-md transition",
+                      "invisible absolute left-0 top-full min-w-48 rounded-md border border-border bg-popover p-1 opacity-0 transition",
                       "group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100",
                     )}
                   >
@@ -54,7 +54,7 @@ export function SiteHeader() {
                       <li key={child.href}>
                         <Link
                           href={child.href}
-                          className="flex min-h-11 items-center rounded-sm px-3 text-sm text-foreground-muted transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:bg-accent focus-visible:text-accent-foreground focus-visible:outline-none"
+                          className="flex min-h-11 items-center rounded-sm px-3 text-sm text-foreground-muted transition-colors hover:bg-background hover:text-foreground focus-visible:bg-background focus-visible:text-foreground focus-visible:outline-none"
                         >
                           {child.title}
                         </Link>

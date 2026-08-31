@@ -1,25 +1,27 @@
 :root {
-  --background: #ffffff;
-  --foreground: #18181b;
-  --card: #ffffff;
-  --card-foreground: #18181b;
-  --popover: #ffffff;
-  --popover-foreground: #18181b;
-  --primary: #18181b;
-  --primary-foreground: #ffffff;
-  --secondary: #f4f4f5;
-  --secondary-foreground: #18181b;
-  --muted: #f4f4f5;
-  --muted-foreground: #52525b;
-  --accent: #f4f4f5;
-  --accent-foreground: #18181b;
-  --destructive: #b91c1c;
-  --destructive-foreground: #ffffff;
-  --border: #e4e4e7;
-  --input: #e4e4e7;
-  --ring: #52525b;
-  --success: #15803d;
-  --warning: #a16207;
+  color-scheme: light;
+
+  --background: #f9f8f6;
+  --foreground: #2c2621;
+  --card: #f0ebe1;
+  --card-foreground: #2c2621;
+  --popover: #f0ebe1;
+  --popover-foreground: #2c2621;
+  --primary: #3e352c;
+  --primary-foreground: #f9f8f6;
+  --secondary: #f0ebe1;
+  --secondary-foreground: #2c2621;
+  --muted: #f0ebe1;
+  --muted-foreground: #8b7f74;
+  --accent: #f0ebe1;
+  --accent-foreground: #2c2621;
+  --destructive: #9a3b2f;
+  --destructive-foreground: #f9f8f6;
+  --border: #d8d0c5;
+  --input: #d8d0c5;
+  --ring: #2c2621;
+  --success: #5c6b4f;
+  --warning: #a1793f;
 
   --theme-canvas: var(--background);
   --theme-surface: var(--card);
@@ -33,14 +35,16 @@
   --theme-warning: var(--warning);
   --theme-danger: var(--destructive);
 
-  --theme-radius-sm: 0.25rem;
-  --theme-radius-md: 0.5rem;
-  --theme-radius-lg: 0.75rem;
-  --theme-radius-xl: 1rem;
+  /* Geometry: 0px preferred, 4px maximum */
+  --theme-radius-sm: 0px;
+  --theme-radius-md: 2px;
+  --theme-radius-lg: 4px;
+  --theme-radius-xl: 4px;
 
-  --theme-shadow-sm: 0 1px 2px rgb(24 24 27 / 0.06);
-  --theme-shadow-md: 0 4px 12px rgb(24 24 27 / 0.08);
-  --theme-shadow-lg: 0 12px 28px rgb(24 24 27 / 0.1);
+  /* Flat by design: no elevation anywhere */
+  --theme-shadow-sm: none;
+  --theme-shadow-md: none;
+  --theme-shadow-lg: none;
 }
 
 @theme inline {
@@ -84,6 +88,16 @@
   --shadow-md: var(--theme-shadow-md);
   --shadow-lg: var(--theme-shadow-lg);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans-base);
+  --font-mono: var(--font-mono-base);
+
+  /* Letter-spacing language */
+  --tracking-tighter: -0.04em;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0em;
+  --tracking-caption: 0.075em;
+
+  /* Named surfaces */
+  --color-sand: #f9f8f6;
+  --color-clay: #f0ebe1;
 }

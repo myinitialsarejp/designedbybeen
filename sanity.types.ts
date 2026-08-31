@@ -81,6 +81,13 @@ export type Slug = {
   source?: string;
 };
 
+export type SanityFileAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+};
+
 export type Project = {
   _id: string;
   _type: "project";
@@ -91,6 +98,9 @@ export type Project = {
   slug?: Slug;
   category?: "residential" | "commercial" | "academic";
   summary?: string;
+  location?: string;
+  architect?: string;
+  designer?: string;
   coverImage?: {
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -103,27 +113,17 @@ export type Project = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
+    isCover?: boolean;
     _type: "image";
     _key: string;
   }>;
-  body?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
+  video?: {
+    asset?: SanityFileAssetReference;
+    media?: unknown;
+    _type: "file";
+  };
   publishedAt?: string;
 };
 
@@ -230,6 +230,7 @@ export type AllSanitySchemaTypes =
   | SanityImageCrop
   | SanityImageHotspot
   | Slug
+  | SanityFileAssetReference
   | Project
   | SanityImagePaletteSwatch
   | SanityImagePalette
@@ -259,12 +260,15 @@ export type PROJECTS_BY_CATEGORY_QUERY_RESULT = Array<{
 
 // Source: ../designedbybeen/lib/sanity/queries.ts
 // Variable: PROJECT_QUERY
-// Query: *[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, coverImage, gallery, body }
+// Query: *[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "video": video.asset->{url, mimeType} }
 export type PROJECT_QUERY_RESULT = {
   _id: string;
   title: string | null;
   category: "academic" | "commercial" | "residential" | null;
   summary: string | null;
+  location: string | null;
+  architect: string | null;
+  designer: string | null;
   coverImage: {
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -277,27 +281,16 @@ export type PROJECT_QUERY_RESULT = {
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
+    isCover?: boolean;
     _type: "image";
     _key: string;
   }> | null;
-  body: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }> | null;
+  video: {
+    url: string | null;
+    mimeType: string | null;
+  } | null;
 } | null;
 
 // Source: ../designedbybeen/lib/sanity/queries.ts
@@ -357,7 +350,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "project" && category == $category] | order(publishedAt desc){ _id, title, slug, summary, coverImage }': PROJECTS_BY_CATEGORY_QUERY_RESULT;
-    '*[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, coverImage, gallery, body }': PROJECT_QUERY_RESULT;
+    '*[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "video": video.asset->{url, mimeType} }': PROJECT_QUERY_RESULT;
     '*[_type == "journal" && defined(slug.current)] | order(publishedAt desc){ _id, title, slug, excerpt, coverImage, publishedAt }': JOURNAL_LIST_QUERY_RESULT;
     '*[_type == "journal" && slug.current == $slug][0]{ _id, title, body, coverImage, publishedAt }': JOURNAL_POST_QUERY_RESULT;
   }

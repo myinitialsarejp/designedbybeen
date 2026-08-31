@@ -4,5 +4,5 @@
 body {
   background: var(--theme-canvas);
   color: var(--theme-foreground);
-  font-family: var(--font-geist-sans), sans-serif;
+  font-family: var(--font-sans-base), "Helvetica Neue", Arial, sans-serif;
 }

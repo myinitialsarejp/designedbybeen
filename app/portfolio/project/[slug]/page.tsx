@@ -1,4 +1,3 @@
-import { PortableText } from "next-sanity";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -21,7 +20,7 @@ export default async function ProjectPage({
 
   return (
     <article className="mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-      <p className="text-sm font-medium uppercase tracking-wide text-foreground-muted">
+      <p className="font-mono text-sm font-medium uppercase tracking-caption text-foreground-muted">
         {project.category}
       </p>
       <h1 className="mt-2 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
@@ -31,6 +30,34 @@ export default async function ProjectPage({
         <p className="mt-4 text-base leading-7 text-foreground-muted sm:text-lg">
           {project.summary}
         </p>
+      )}
+      {(project.location || project.architect || project.designer) && (
+        <dl className="mt-6 grid grid-cols-1 gap-4 border-t border-border pt-6 sm:grid-cols-3">
+          {project.location && (
+            <div>
+              <dt className="text-sm font-medium uppercase tracking-wide text-foreground-muted">
+                Location
+              </dt>
+              <dd className="mt-1 text-base text-foreground">{project.location}</dd>
+            </div>
+          )}
+          {project.architect && (
+            <div>
+              <dt className="text-sm font-medium uppercase tracking-wide text-foreground-muted">
+                Architect
+              </dt>
+              <dd className="mt-1 text-base text-foreground">{project.architect}</dd>
+            </div>
+          )}
+          {project.designer && (
+            <div>
+              <dt className="text-sm font-medium uppercase tracking-wide text-foreground-muted">
+                Designer
+              </dt>
+              <dd className="mt-1 text-base text-foreground">{project.designer}</dd>
+            </div>
+          )}
+        </dl>
       )}
       {project.coverImage && (
         <div className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-lg">
@@ -42,9 +69,39 @@ export default async function ProjectPage({
           />
         </div>
       )}
-      {Array.isArray(project.body) && project.body.length > 0 && (
-        <div className="prose prose-neutral mt-10 max-w-none">
-          <PortableText value={project.body} />
+      {project.video?.url && (
+        <video
+          className="mt-8 w-full rounded-lg"
+          controls
+          src={project.video.url}
+        >
+          Your browser does not support the video tag.
+        </video>
+      )}
+      {Array.isArray(project.gallery) && project.gallery.length > 0 && (
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {project.gallery.map((image) => (
+            <figure key={image._key} className="relative">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
+                <Image
+                  src={urlForImage(image).width(800).height(600).url()}
+                  alt={image.alt ?? project.title ?? ""}
+                  fill
+                  className="object-cover"
+                />
+                {image.isCover && (
+                  <span className="absolute left-2 top-2 rounded bg-surface/90 px-2 py-1 text-xs font-medium uppercase tracking-wide text-foreground">
+                    Cover
+                  </span>
+                )}
+              </div>
+              {image.caption && (
+                <figcaption className="mt-2 text-sm text-foreground-muted">
+                  {image.caption}
+                </figcaption>
+              )}
+            </figure>
+          ))}
         </div>
       )}
     </article>
