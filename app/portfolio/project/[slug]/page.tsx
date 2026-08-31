@@ -71,14 +71,23 @@ export default async function ProjectPage({
           />
         </div>
       )}
-      {project.video?.url && (
-        <video
-          className="mt-8 w-full rounded-lg"
-          controls
-          src={project.video.url}
-        >
-          Your browser does not support the video tag.
-        </video>
+      {Array.isArray(project.videos) && project.videos.length > 0 && (
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+          {project.videos.map((video, index) =>
+            video.url ? (
+              <figure key={video.url ?? index}>
+                <video className="w-full rounded-lg" controls src={video.url}>
+                  Your browser does not support the video tag.
+                </video>
+                {video.caption && (
+                  <figcaption className="mt-2 text-sm text-foreground-muted">
+                    {video.caption}
+                  </figcaption>
+                )}
+              </figure>
+            ) : null
+          )}
+        </div>
       )}
       {Array.isArray(project.gallery) && project.gallery.length > 0 && (
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">

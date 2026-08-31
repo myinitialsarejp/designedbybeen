@@ -119,11 +119,13 @@ export type Project = {
     _type: "image";
     _key: string;
   }>;
-  video?: {
+  videos?: Array<{
     asset?: SanityFileAssetReference;
     media?: unknown;
-    _type: "file";
-  };
+    caption?: string;
+    _type: "video";
+    _key: string;
+  }>;
   publishedAt?: string;
 };
 
@@ -260,7 +262,7 @@ export type PROJECTS_BY_CATEGORY_QUERY_RESULT = Array<{
 
 // Source: ../designedbybeen/lib/sanity/queries.ts
 // Variable: PROJECT_QUERY
-// Query: *[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "video": video.asset->{url, mimeType} }
+// Query: *[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "videos": videos[]{ caption, "url": asset->url, "mimeType": asset->mimeType } }
 export type PROJECT_QUERY_RESULT = {
   _id: string;
   title: string | null;
@@ -287,10 +289,11 @@ export type PROJECT_QUERY_RESULT = {
     _type: "image";
     _key: string;
   }> | null;
-  video: {
+  videos: Array<{
+    caption: string | null;
     url: string | null;
     mimeType: string | null;
-  } | null;
+  }> | null;
 } | null;
 
 // Source: ../designedbybeen/lib/sanity/queries.ts
@@ -345,13 +348,19 @@ export type JOURNAL_POST_QUERY_RESULT = {
   publishedAt: string | null;
 } | null;
 
+// Source: ../designedbybeen/lib/sanity/queries.ts
+// Variable: SITE_SETTINGS_QUERY
+// Query: *[_type == "siteSettings"][0]{ title, instagramUrl, tiktokUrl }
+export type SITE_SETTINGS_QUERY_RESULT = null;
+
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "project" && category == $category] | order(publishedAt desc){ _id, title, slug, summary, coverImage }': PROJECTS_BY_CATEGORY_QUERY_RESULT;
-    '*[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "video": video.asset->{url, mimeType} }': PROJECT_QUERY_RESULT;
+    '*[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "videos": videos[]{ caption, "url": asset->url, "mimeType": asset->mimeType } }': PROJECT_QUERY_RESULT;
     '*[_type == "journal" && defined(slug.current)] | order(publishedAt desc){ _id, title, slug, excerpt, coverImage, publishedAt }': JOURNAL_LIST_QUERY_RESULT;
     '*[_type == "journal" && slug.current == $slug][0]{ _id, title, body, coverImage, publishedAt }': JOURNAL_POST_QUERY_RESULT;
+    '*[_type == "siteSettings"][0]{ title, instagramUrl, tiktokUrl }': SITE_SETTINGS_QUERY_RESULT;
   }
 }

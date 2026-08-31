@@ -5,7 +5,7 @@ export const PROJECTS_BY_CATEGORY_QUERY = defineQuery(
 );
 
 export const PROJECT_QUERY = defineQuery(
-  `*[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "video": video.asset->{url, mimeType} }`
+  `*[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "videos": videos[]{ caption, "url": asset->url, "mimeType": asset->mimeType } }`
 );
 
 export const JOURNAL_LIST_QUERY = defineQuery(
