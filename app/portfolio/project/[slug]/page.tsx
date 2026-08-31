@@ -14,6 +14,8 @@ export default async function ProjectPage({
   const { data: project } = await sanityFetch({
     query: PROJECT_QUERY,
     params: { slug },
+    tags: ["project", `project:${slug}`],
+    stega: false,
   });
 
   if (!project) return notFound();

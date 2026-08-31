@@ -14,6 +14,8 @@ export default async function AcademicPage() {
   const { data: projects } = await sanityFetch({
     query: PROJECTS_BY_CATEGORY_QUERY,
     params: { category: "academic" },
+    tags: ["project", "project-category:academic"],
+    stega: false,
   });
 
   return (

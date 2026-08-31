@@ -11,7 +11,11 @@ export const metadata: Metadata = {
 };
 
 export default async function JournalPage() {
-  const { data: posts } = await sanityFetch({ query: JOURNAL_LIST_QUERY });
+  const { data: posts } = await sanityFetch({
+    query: JOURNAL_LIST_QUERY,
+    tags: ["journal"],
+    stega: false,
+  });
 
   return (
     <section className="mx-auto w-full max-w-screen-2xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">

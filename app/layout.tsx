@@ -3,8 +3,13 @@ import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import {
+  SanityContentProvider,
+  type SanitySiteSettings,
+} from "@/components/sanity-content-provider";
 import { siteConfig } from "@/lib/site";
-import { SanityLive } from "@/lib/sanity/live";
+import { sanityFetch, SanityLive } from "@/lib/sanity/live";
+import { SITE_SETTINGS_QUERY } from "@/lib/sanity/queries";
 
 const plexSans = IBM_Plex_Sans({
   variable: "--font-sans-base",
@@ -26,20 +31,30 @@ export const metadata: Metadata = {
   description: siteConfig.description,
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { data: siteSettings } = await sanityFetch({
+    query: SITE_SETTINGS_QUERY,
+    tags: ["site-settings"],
+    stega: false,
+  });
+
   return (
     <html
       lang="en"
       className={`${plexSans.variable} ${plexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
+        <SanityContentProvider
+          initialContent={{ siteSettings: siteSettings as SanitySiteSettings }}
+        >
+          <SiteHeader />
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
+        </SanityContentProvider>
         <SanityLive />
       </body>
     </html>

@@ -15,6 +15,8 @@ export default async function JournalPostPage({
   const { data: post } = await sanityFetch({
     query: JOURNAL_POST_QUERY,
     params: { slug },
+    tags: ["journal", `journal:${slug}`],
+    stega: false,
   });
 
   if (!post) return notFound();

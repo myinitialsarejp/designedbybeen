@@ -8,9 +8,12 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { mainNav, siteConfig } from "@/lib/site";
 import { Button } from "@/components/ui/button";
+import { useSanityContent } from "@/components/sanity-content-provider";
 
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { content } = useSanityContent();
+  const siteName = content.siteSettings?.title || siteConfig.name;
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -29,7 +32,7 @@ export function SiteHeader() {
               priority
             />
           </span>
-          <span className="truncate">{siteConfig.name}</span>
+          <span className="truncate">{siteName}</span>
         </Link>
 
         {/* Desktop navigation */}

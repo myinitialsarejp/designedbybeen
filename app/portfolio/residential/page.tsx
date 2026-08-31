@@ -14,6 +14,8 @@ export default async function ResidentialPage() {
   const { data: projects } = await sanityFetch({
     query: PROJECTS_BY_CATEGORY_QUERY,
     params: { category: "residential" },
+    tags: ["project", "project-category:residential"],
+    stega: false,
   });
 
   return (

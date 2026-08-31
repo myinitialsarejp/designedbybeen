@@ -15,3 +15,7 @@ export const JOURNAL_LIST_QUERY = defineQuery(
 export const JOURNAL_POST_QUERY = defineQuery(
   `*[_type == "journal" && slug.current == $slug][0]{ _id, title, body, coverImage, publishedAt }`
 );
+
+export const SITE_SETTINGS_QUERY = defineQuery(
+  `*[_type == "siteSettings"][0]{ title, instagramUrl, tiktokUrl }`
+);
