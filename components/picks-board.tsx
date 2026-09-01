@@ -13,6 +13,8 @@ export function PicksBoard({ picks }: { picks: PickPreview[] }) {
     );
   }
 
+  let visibleIndex = 0;
+
   return (
     <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
       {picks.map((pick) => {
@@ -22,9 +24,15 @@ export function PicksBoard({ picks }: { picks: PickPreview[] }) {
 
         const width = pick.width && pick.width > 0 ? pick.width : 800;
         const imageUrl = urlForImage(pick.image).width(width).url();
+        const delayMs = Math.min(visibleIndex * 60, 600);
+        visibleIndex++;
 
         return (
-          <div key={pick._id} className="mb-4 break-inside-avoid">
+          <div
+            key={pick._id}
+            className="mb-4 break-inside-avoid opacity-0 animate-fade-in"
+            style={{ animationDelay: `${delayMs}ms` }}
+          >
             <PickCard
               title={pick.title}
               imageUrl={imageUrl}
