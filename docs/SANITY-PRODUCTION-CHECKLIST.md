@@ -32,7 +32,7 @@ In Sanity Manage, open the project that provides content for this website and cr
 - [ ] Add this filter:
 
   ```groq
-  _type in ["project", "journal", "siteSettings"]
+  _type in ["project", "journal", "siteSettings", "pick"]
   ```
 
 - [ ] Add this projection:

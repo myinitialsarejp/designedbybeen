@@ -59,7 +59,7 @@ export function PickCard({
           <HoverCardTrigger asChild>
             <Button
               type="button"
-              variant="outline"
+              variant="ghost"
               size="icon"
               className="absolute top-2 right-2 z-10 size-11 bg-background/90"
               aria-label={detailsLabel}
