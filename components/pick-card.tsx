@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { Info } from "lucide-react";
 import { useState } from "react";
-import type { SanityImageSource } from "@sanity/image-url";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,11 +10,10 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
-import { urlForImage } from "@/lib/sanity/image";
 
 export type PickCardProps = {
   title: string;
-  image: SanityImageSource;
+  imageUrl: string;
   url: string;
   width?: number | null;
   height?: number | null;
@@ -23,7 +21,7 @@ export type PickCardProps = {
 
 export function PickCard({
   title,
-  image,
+  imageUrl,
   url,
   width,
   height,
@@ -44,7 +42,7 @@ export function PickCard({
           className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
         >
           <Image
-            src={urlForImage(image).width(imageWidth).url()}
+            src={imageUrl}
             alt={title}
             width={imageWidth}
             height={imageHeight}
