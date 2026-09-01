@@ -7,7 +7,7 @@
   --card-foreground: #2c2621;
   --popover: #f0ebe1;
   --popover-foreground: #2c2621;
-  --primary: #3e352c;
+  --primary: #572932;
   --primary-foreground: #f9f8f6;
   --secondary: #f0ebe1;
   --secondary-foreground: #2c2621;
@@ -19,7 +19,7 @@
   --destructive-foreground: #f9f8f6;
   --border: #d8d0c5;
   --input: #d8d0c5;
-  --ring: #2c2621;
+  --ring: #572932;
   --success: #5c6b4f;
   --warning: #a1793f;
 
@@ -29,8 +29,8 @@
   --theme-foreground: var(--foreground);
   --theme-foreground-muted: var(--muted-foreground);
   --theme-border: var(--border);
-  --theme-accent: var(--primary);
-  --theme-accent-foreground: var(--primary-foreground);
+  --theme-accent: var(--accent);
+  --theme-accent-foreground: var(--accent-foreground);
   --theme-success: var(--success);
   --theme-warning: var(--warning);
   --theme-danger: var(--destructive);
@@ -100,4 +100,5 @@
   /* Named surfaces */
   --color-sand: #f9f8f6;
   --color-clay: #f0ebe1;
+  --color-pantone: #572932;
 }

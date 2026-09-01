@@ -22,65 +22,6 @@ export type SanityImageAssetReference = {
   [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
 };
 
-export type Journal = {
-  _id: string;
-  _type: "journal";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  excerpt?: string;
-  coverImage?: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  body?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  publishedAt?: string;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
-};
-
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
-
 export type SanityFileAssetReference = {
   _ref: string;
   _type: "reference";
@@ -127,6 +68,28 @@ export type Project = {
     _key: string;
   }>;
   publishedAt?: string;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -228,12 +191,11 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | SanityImageAssetReference
-  | Journal
+  | SanityFileAssetReference
+  | Project
   | SanityImageCrop
   | SanityImageHotspot
   | Slug
-  | SanityFileAssetReference
-  | Project
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -297,58 +259,6 @@ export type PROJECT_QUERY_RESULT = {
 } | null;
 
 // Source: ../designedbybeen/lib/sanity/queries.ts
-// Variable: JOURNAL_LIST_QUERY
-// Query: *[_type == "journal" && defined(slug.current)] | order(publishedAt desc){ _id, title, slug, excerpt, coverImage, publishedAt }
-export type JOURNAL_LIST_QUERY_RESULT = Array<{
-  _id: string;
-  title: string | null;
-  slug: Slug | null;
-  excerpt: string | null;
-  coverImage: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
-  publishedAt: string | null;
-}>;
-
-// Source: ../designedbybeen/lib/sanity/queries.ts
-// Variable: JOURNAL_POST_QUERY
-// Query: *[_type == "journal" && slug.current == $slug][0]{ _id, title, body, coverImage, publishedAt }
-export type JOURNAL_POST_QUERY_RESULT = {
-  _id: string;
-  title: string | null;
-  body: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
-    listItem?: "bullet" | "number";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }> | null;
-  coverImage: {
-    asset?: SanityImageAssetReference;
-    media?: unknown;
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  } | null;
-  publishedAt: string | null;
-} | null;
-
-// Source: ../designedbybeen/lib/sanity/queries.ts
 // Variable: SITE_SETTINGS_QUERY
 // Query: *[_type == "siteSettings"][0]{ title, instagramUrl, tiktokUrl }
 export type SITE_SETTINGS_QUERY_RESULT = null;
@@ -359,8 +269,6 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "project" && category == $category] | order(publishedAt desc){ _id, title, slug, summary, coverImage }': PROJECTS_BY_CATEGORY_QUERY_RESULT;
     '*[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "videos": videos[]{ caption, "url": asset->url, "mimeType": asset->mimeType } }': PROJECT_QUERY_RESULT;
-    '*[_type == "journal" && defined(slug.current)] | order(publishedAt desc){ _id, title, slug, excerpt, coverImage, publishedAt }': JOURNAL_LIST_QUERY_RESULT;
-    '*[_type == "journal" && slug.current == $slug][0]{ _id, title, body, coverImage, publishedAt }': JOURNAL_POST_QUERY_RESULT;
     '*[_type == "siteSettings"][0]{ title, instagramUrl, tiktokUrl }': SITE_SETTINGS_QUERY_RESULT;
   }
 }

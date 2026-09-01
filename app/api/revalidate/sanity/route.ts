@@ -5,7 +5,7 @@ import { parseBody } from "next-sanity/webhook";
 type ProjectCategory = "residential" | "commercial" | "academic";
 
 type SanityWebhookPayload = {
-  _type?: "project" | "journal" | "siteSettings";
+  _type?: "project" | "siteSettings";
   slug?: string;
   category?: ProjectCategory;
 };
@@ -20,11 +20,6 @@ function getTags(payload: SanityWebhookPayload) {
   switch (payload._type) {
     case "siteSettings":
       return ["site-settings"];
-    case "journal":
-      return [
-        "journal",
-        ...(payload.slug ? [`journal:${payload.slug}`] : []),
-      ];
     case "project":
       // Refresh every category so moves and deletions cannot leave stale grid entries.
       return [
