@@ -277,6 +277,24 @@ export type PROJECT_QUERY_RESULT = {
 } | null;
 
 // Source: ../designedbybeen/lib/sanity/queries.ts
+// Variable: PICKS_QUERY
+// Query: *[_type == "pick" && defined(link) && defined(image.asset)] | order(_createdAt desc){    _id,    title,    link,    image,    "width": image.asset->metadata.dimensions.width,    "height": image.asset->metadata.dimensions.height  }
+export type PICKS_QUERY_RESULT = Array<{
+  _id: string;
+  title: string | null;
+  link: string;
+  image: {
+    asset: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  width: number | null;
+  height: number | null;
+}>;
+
+// Source: ../designedbybeen/lib/sanity/queries.ts
 // Variable: SITE_SETTINGS_QUERY
 // Query: *[_type == "siteSettings"][0]{ title, instagramUrl, tiktokUrl }
 export type SITE_SETTINGS_QUERY_RESULT = null;
@@ -287,6 +305,7 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "project" && category == $category] | order(publishedAt desc){ _id, title, slug, summary, coverImage }': PROJECTS_BY_CATEGORY_QUERY_RESULT;
     '*[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "videos": videos[]{ caption, "url": asset->url, "mimeType": asset->mimeType } }': PROJECT_QUERY_RESULT;
+    '*[_type == "pick" && defined(link) && defined(image.asset)] | order(_createdAt desc){\n    _id,\n    title,\n    link,\n    image,\n    "width": image.asset->metadata.dimensions.width,\n    "height": image.asset->metadata.dimensions.height\n  }': PICKS_QUERY_RESULT;
     '*[_type == "siteSettings"][0]{ title, instagramUrl, tiktokUrl }': SITE_SETTINGS_QUERY_RESULT;
   }
 }

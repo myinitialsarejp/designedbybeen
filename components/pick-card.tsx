@@ -14,7 +14,6 @@ import {
 import { urlForImage } from "@/lib/sanity/image";
 
 export type PickCardProps = {
-  id: string;
   title: string;
   image: SanityImageSource;
   url: string;
@@ -23,7 +22,6 @@ export type PickCardProps = {
 };
 
 export function PickCard({
-  id,
   title,
   image,
   url,

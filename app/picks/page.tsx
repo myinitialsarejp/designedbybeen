@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { PicksBoard, type PickPreview } from "@/components/picks-board";
+import { PicksBoard } from "@/components/picks-board";
 import { sanityFetch } from "@/lib/sanity/live";
 import { PICKS_QUERY } from "@/lib/sanity/queries";
 
@@ -10,12 +10,11 @@ export const metadata: Metadata = {
 };
 
 export default async function PicksPage() {
-  const { data } = await sanityFetch({
+  const { data: picks } = await sanityFetch({
     query: PICKS_QUERY,
     tags: ["pick"],
     stega: false,
   });
-  const picks = data as PickPreview[];
 
   return (
     <section className="mx-auto w-full max-w-screen-2xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
@@ -24,7 +23,7 @@ export default async function PicksPage() {
           Picks
         </h1>
         <p className="mt-4 text-base leading-7 text-foreground-muted sm:text-lg">
-            A curated list of favorites and recommendations. Content coming soon.
+          A curated list of favorites and recommendations.
         </p>
       </div>
 

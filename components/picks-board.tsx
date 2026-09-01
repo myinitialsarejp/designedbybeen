@@ -1,15 +1,7 @@
-import type { SanityImageSource } from "@sanity/image-url";
-
 import { PickCard } from "@/components/pick-card";
+import type { PICKS_QUERY_RESULT } from "@/sanity.types";
 
-export type PickPreview = {
-  _id: string;
-  title: string | null;
-  link: string | null;
-  image: SanityImageSource | null;
-  width: number | null;
-  height: number | null;
-};
+export type PickPreview = PICKS_QUERY_RESULT[number];
 
 export function PicksBoard({ picks }: { picks: PickPreview[] }) {
   if (picks.length === 0) {
@@ -23,14 +15,13 @@ export function PicksBoard({ picks }: { picks: PickPreview[] }) {
   return (
     <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
       {picks.map((pick) => {
-        if (!pick.image || !pick.link || !pick.title) {
+        if (!pick.title) {
           return null;
         }
 
         return (
           <div key={pick._id} className="mb-4 break-inside-avoid">
             <PickCard
-              id={pick._id}
               title={pick.title}
               image={pick.image}
               url={pick.link}
