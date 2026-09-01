@@ -22,6 +22,39 @@ export type SanityImageAssetReference = {
   [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
 };
 
+export type Pick = {
+  _id: string;
+  _type: "pick";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  link?: string;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
+
 export type SanityFileAssetReference = {
   _ref: string;
   _type: "reference";
@@ -68,22 +101,6 @@ export type Project = {
     _key: string;
   }>;
   publishedAt?: string;
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top?: number;
-  bottom?: number;
-  left?: number;
-  right?: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x?: number;
-  y?: number;
-  height?: number;
-  width?: number;
 };
 
 export type Slug = {
@@ -191,10 +208,11 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | SanityImageAssetReference
-  | SanityFileAssetReference
-  | Project
+  | Pick
   | SanityImageCrop
   | SanityImageHotspot
+  | SanityFileAssetReference
+  | Project
   | Slug
   | SanityImagePaletteSwatch
   | SanityImagePalette
