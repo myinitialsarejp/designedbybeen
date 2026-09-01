@@ -60,8 +60,8 @@ export function PickCard({
             <Button
               type="button"
               variant="ghost"
-              size="icon"
-              className="absolute top-2 right-2 z-10 size-11 bg-background/90"
+              size="icon-xs"
+              className="absolute top-2 right-2 z-10 size-11"
               aria-label={detailsLabel}
               onClick={() => setDetailsOpen((isOpen) => !isOpen)}
             >
