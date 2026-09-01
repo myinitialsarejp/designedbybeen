@@ -24,7 +24,7 @@ export default async function PicksPage() {
           Picks
         </h1>
         <p className="mt-4 text-base leading-7 text-foreground-muted sm:text-lg">
-          A curated list of favorites and recommendations.
+            A curated list of favorites and recommendations. Content coming soon.
         </p>
       </div>
 
