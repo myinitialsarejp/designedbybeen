@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import {
   SanityContentProvider,
   type SanitySiteSettings,
-} from "@/components/sanity-content-provider";
+} from "@/context/sanity-content-provider";
 import { siteConfig } from "@/lib/site";
 import { sanityFetch, SanityLive } from "@/lib/sanity/live";
 import { SITE_SETTINGS_QUERY } from "@/lib/sanity/queries";

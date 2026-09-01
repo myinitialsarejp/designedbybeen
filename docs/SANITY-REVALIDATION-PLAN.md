@@ -54,7 +54,7 @@ Add a `SITE_SETTINGS_QUERY` in `lib/sanity/queries.ts` and use a `site-settings`
 
 ### 2. Add a root-level React provider
 
-Create a client component at `components/sanity-content-provider.tsx`:
+Create a client component at `context/sanity-content-provider.tsx`:
 
 ```text
 "use client"

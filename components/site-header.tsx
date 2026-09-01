@@ -8,7 +8,7 @@ import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { mainNav, siteConfig } from "@/lib/site";
 import { Button } from "@/components/ui/button";
-import { useSanityContent } from "@/components/sanity-content-provider";
+import { useSanityContent } from "@/context/sanity-content-provider";
 
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
