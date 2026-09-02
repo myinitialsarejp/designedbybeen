@@ -12,6 +12,7 @@ export const siteConfig = {
 export type NavItem = {
   title: string;
   href: string;
+  imageSrc: string;
   children?: NavItem[];
 };
 
@@ -19,14 +20,15 @@ export const mainNav: NavItem[] = [
   {
     title: "Portfolio",
     href: "/portfolio",
+    imageSrc: "/the_been.jpg",
     children: [
-      { title: "Residential", href: "/portfolio/residential" },
-      { title: "Commercial", href: "/portfolio/commercial" },
-      { title: "Academic Work", href: "/portfolio/academic" },
+      { title: "Residential", href: "/portfolio/residential", imageSrc: "/the_been.jpg" },
+      { title: "Commercial", href: "/portfolio/commercial", imageSrc: "/the_been.jpg" },
+      { title: "Academic Work", href: "/portfolio/academic", imageSrc: "/the_been.jpg" },
     ],
   },
-  { title: "Artwork", href: "/artwork" },
-  { title: "Picks", href: "/picks" },
-  { title: "About", href: "/about" },
-  { title: "Contact", href: "/contact" },
+  { title: "Artwork", href: "/artwork", imageSrc: "/the_been.jpg" },
+  { title: "Picks", href: "/picks", imageSrc: "/the_been.jpg" },
+  { title: "About", href: "/about", imageSrc: "/the_been.jpg" },
+  { title: "Contact", href: "/contact", imageSrc: "/the_been.jpg" },
 ];

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { mainNav, siteConfig } from "@/lib/site";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { NavSection } from "@/components/nav-section";
 
 export default function Home() {
   return (
@@ -30,29 +30,15 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-screen-2xl px-4 pb-20 sm:px-6 lg:px-8">
-        <h2 className="text-xl font-semibold tracking-tight text-foreground">
-          Explore
-        </h2>
-        <ul className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {mainNav.map((item) => (
-            <li key={item.href}>
-              <Card className="h-full min-h-32 gap-0 overflow-hidden rounded-lg py-0 transition-colors hover:border-foreground/30">
-                <Link
-                  href={item.href}
-                  className="flex h-full min-h-32 flex-col justify-between p-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
-                >
-                  <CardTitle className="text-lg text-foreground">
-                    {item.title}
-                  </CardTitle>
-                  {item.children && (
-                    <span className="mt-3 text-sm text-foreground-muted">
-                      {item.children.map((child) => child.title).join(" · ")}
-                    </span>
-                  )}
-                </Link>
-              </Card>
-            </li>
+      <section aria-label="Explore the site" className="w-full">
+        <ul className="m-0 list-none p-0">
+          {mainNav.map((item, index) => (
+            <NavSection
+              key={item.title}
+              {...item}
+              priority={index === 0}
+              contentAlignment={index % 2 === 0 ? "left" : "right"}
+            />
           ))}
         </ul>
       </section>
