@@ -4,8 +4,8 @@ export const siteConfig = {
   description:
     "Portfolio of Designed By Been — residential, commercial, and academic design work, artwork, and picks.",
   social: {
-    instagram: "https://instagram.com/",
-    tiktok: "https://tiktok.com/",
+    instagram: "https://instagram.com/designedbybeen",
+    tiktok: "https://tiktok.com/@designwithbeen",
   },
 } as const;
 
