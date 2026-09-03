@@ -92,28 +92,32 @@ export default async function ProjectPage({
       )}
       {Array.isArray(project.gallery) && project.gallery.length > 0 && (
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
-          {project.gallery.map((image) => (
-            <figure key={image._key} className="relative">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
-                <Image
-                  src={urlForImage(image).width(800).height(600).url()}
-                  alt={image.alt ?? project.title ?? ""}
-                  fill
-                  className="object-cover"
-                />
-                {image.isCover && (
-                  <span className="absolute left-2 top-2 rounded bg-surface/90 px-2 py-1 text-xs font-medium uppercase tracking-wide text-foreground">
-                    Cover
-                  </span>
+          {project.gallery.map((image) => {
+            if (!image.asset) return null;
+
+            return (
+              <figure key={image._key} className="relative">
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
+                  <Image
+                    src={urlForImage(image).width(800).height(600).url()}
+                    alt={image.alt ?? project.title ?? ""}
+                    fill
+                    className="object-cover"
+                  />
+                  {image.isCover && (
+                    <span className="absolute left-2 top-2 rounded bg-surface/90 px-2 py-1 text-xs font-medium uppercase tracking-wide text-foreground">
+                      Cover
+                    </span>
+                  )}
+                </div>
+                {image.caption && (
+                  <figcaption className="mt-2 text-sm text-foreground-muted">
+                    {image.caption}
+                  </figcaption>
                 )}
-              </div>
-              {image.caption && (
-                <figcaption className="mt-2 text-sm text-foreground-muted">
-                  {image.caption}
-                </figcaption>
-              )}
-            </figure>
-          ))}
+              </figure>
+            );
+          })}
         </div>
       )}
       {Array.isArray(project.picks) && (

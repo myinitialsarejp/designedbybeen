@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Info } from "lucide-react";
 import { useState } from "react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   HoverCard,
@@ -28,7 +27,6 @@ export function PickCard({
   height,
 }: PickCardProps) {
   const [detailsOpen, setDetailsOpen] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
   const imageWidth = width && width > 0 ? width : 800;
   const imageHeight = height && height > 0 ? height : 600;
   const detailsLabel = `${detailsOpen ? "Hide" : "Show"} details for ${title}`;
@@ -49,11 +47,7 @@ export function PickCard({
             width={imageWidth}
             height={imageHeight}
             sizes="(min-width: 1280px) 23vw, (min-width: 1024px) 30vw, (min-width: 640px) 45vw, 100vw"
-            onLoad={() => setImageLoaded(true)}
-            className={cn(
-              "h-auto w-full transition-opacity duration-500 ease-out",
-              imageLoaded ? "opacity-100" : "opacity-0"
-            )}
+            className="h-auto w-full"
           />
         </a>
 
