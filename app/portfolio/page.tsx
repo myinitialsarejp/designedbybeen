@@ -5,7 +5,7 @@ import { mainNav } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Portfolio",
-  description: "Residential, commercial, and academic design work.",
+  description: "Residential and commercial design work.",
 };
 
 const portfolio = mainNav.find((item) => item.href === "/portfolio");
@@ -19,7 +19,7 @@ export default function PortfolioPage() {
             Portfolio
           </h1>
           <p className="mt-4 text-base leading-7 text-foreground-muted sm:text-lg">
-            Selected work across residential, commercial, and academic projects.
+            Selected work across residential and commercial projects.
             Choose a category to explore. Content coming soon.
           </p>
         </div>

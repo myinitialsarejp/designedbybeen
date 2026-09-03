@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
+import { ProjectPicksCarousel } from "@/components/project-picks-carousel";
 import { sanityFetch } from "@/lib/sanity/live";
 import { urlForImage } from "@/lib/sanity/image";
 import { PROJECT_QUERY } from "@/lib/sanity/queries";
@@ -114,6 +115,9 @@ export default async function ProjectPage({
             </figure>
           ))}
         </div>
+      )}
+      {Array.isArray(project.picks) && (
+        <ProjectPicksCarousel picks={project.picks} />
       )}
     </article>
   );

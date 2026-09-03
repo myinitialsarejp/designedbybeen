@@ -16,7 +16,7 @@ export default function Home() {
             {siteConfig.name}
           </h1>
           <p className="mt-6 text-lg leading-8 text-foreground-muted">
-            A portfolio of residential, commercial, and academic design work,
+            A portfolio of residential and commercial design work,
             alongside artwork, a journal, and a running list of picks.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">

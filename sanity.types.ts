@@ -55,6 +55,13 @@ export type SanityImageHotspot = {
   width?: number;
 };
 
+export type PickReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "pick";
+};
+
 export type SanityFileAssetReference = {
   _ref: string;
   _type: "reference";
@@ -70,7 +77,7 @@ export type Project = {
   _rev: string;
   title?: string;
   slug?: Slug;
-  category?: "residential" | "commercial" | "academic";
+  category?: "residential" | "commercial";
   summary?: string;
   location?: string;
   architect?: string;
@@ -82,6 +89,11 @@ export type Project = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+  picks?: Array<
+    {
+      _key: string;
+    } & PickReference
+  >;
   gallery?: Array<{
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -211,6 +223,7 @@ export type AllSanitySchemaTypes =
   | Pick
   | SanityImageCrop
   | SanityImageHotspot
+  | PickReference
   | SanityFileAssetReference
   | Project
   | Slug
@@ -242,11 +255,11 @@ export type PROJECTS_BY_CATEGORY_QUERY_RESULT = Array<{
 
 // Source: ../designedbybeen/lib/sanity/queries.ts
 // Variable: PROJECT_QUERY
-// Query: *[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "videos": videos[]{ caption, "url": asset->url, "mimeType": asset->mimeType } }
+// Query: *[_type == "project" && category in ["residential", "commercial"] && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "videos": videos[]{ caption, "url": asset->url, "mimeType": asset->mimeType }, "picks": picks[]->{ _id, title, link, image, "width": image.asset->metadata.dimensions.width, "height": image.asset->metadata.dimensions.height } }
 export type PROJECT_QUERY_RESULT = {
   _id: string;
   title: string | null;
-  category: "academic" | "commercial" | "residential" | null;
+  category: "commercial" | "residential" | null;
   summary: string | null;
   location: string | null;
   architect: string | null;
@@ -274,6 +287,20 @@ export type PROJECT_QUERY_RESULT = {
     url: string | null;
     mimeType: string | null;
   }> | null;
+  picks: Array<{
+    _id: string;
+    title: string | null;
+    link: string | null;
+    image: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+    width: number | null;
+    height: number | null;
+  }> | null;
 } | null;
 
 // Source: ../designedbybeen/lib/sanity/queries.ts
@@ -300,12 +327,15 @@ export type PICKS_QUERY_RESULT = Array<{
 export type SITE_SETTINGS_QUERY_RESULT = null;
 
 // Query TypeMap
-import "@sanity/client";
-declare module "@sanity/client" {
+declare global {
   interface SanityQueries {
     '*[_type == "project" && category == $category] | order(publishedAt desc){ _id, title, slug, summary, coverImage }': PROJECTS_BY_CATEGORY_QUERY_RESULT;
-    '*[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "videos": videos[]{ caption, "url": asset->url, "mimeType": asset->mimeType } }': PROJECT_QUERY_RESULT;
+    '*[_type == "project" && category in ["residential", "commercial"] && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "videos": videos[]{ caption, "url": asset->url, "mimeType": asset->mimeType }, "picks": picks[]->{ _id, title, link, image, "width": image.asset->metadata.dimensions.width, "height": image.asset->metadata.dimensions.height } }': PROJECT_QUERY_RESULT;
     '*[_type == "pick" && defined(link) && defined(image.asset)] | order(_createdAt desc){\n    _id,\n    title,\n    link,\n    image,\n    "width": image.asset->metadata.dimensions.width,\n    "height": image.asset->metadata.dimensions.height\n  }': PICKS_QUERY_RESULT;
     '*[_type == "siteSettings"][0]{ title, instagramUrl, tiktokUrl }': SITE_SETTINGS_QUERY_RESULT;
   }
+}
+// Lets @sanity/client releases that predate the global registry read it too
+declare module "@sanity/client" {
+  interface SanityQueries extends globalThis.SanityQueries {}
 }

@@ -2,7 +2,7 @@ import { revalidateTag } from "next/cache";
 import { NextResponse, type NextRequest } from "next/server";
 import { parseBody } from "next-sanity/webhook";
 
-type ProjectCategory = "residential" | "commercial" | "academic";
+type ProjectCategory = "residential" | "commercial";
 
 type SanityWebhookPayload = {
   _type?: "pick" | "project" | "siteSettings";
@@ -13,7 +13,6 @@ type SanityWebhookPayload = {
 const projectCategoryTags: readonly `project-category:${ProjectCategory}`[] = [
   "project-category:residential",
   "project-category:commercial",
-  "project-category:academic",
 ];
 
 function getTags(payload: SanityWebhookPayload) {

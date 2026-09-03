@@ -5,7 +5,7 @@ export const PROJECTS_BY_CATEGORY_QUERY = defineQuery(
 );
 
 export const PROJECT_QUERY = defineQuery(
-  `*[_type == "project" && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "videos": videos[]{ caption, "url": asset->url, "mimeType": asset->mimeType } }`
+  `*[_type == "project" && category in ["residential", "commercial"] && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "videos": videos[]{ caption, "url": asset->url, "mimeType": asset->mimeType }, "picks": picks[]->{ _id, title, link, image, "width": image.asset->metadata.dimensions.width, "height": image.asset->metadata.dimensions.height } }`
 );
 
 export const PICKS_QUERY = defineQuery(

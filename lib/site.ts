@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Designed By Been",
   legalName: "Benji Dunn LLC",
   description:
-    "Portfolio of Designed By Been — residential, commercial, and academic design work, artwork, and picks.",
+    "Portfolio of Designed By Been — residential and commercial design work, artwork, and picks.",
   social: {
     instagram: "https://instagram.com/designedbybeen",
     tiktok: "https://tiktok.com/@designwithbeen",
@@ -20,15 +20,14 @@ export const mainNav: NavItem[] = [
   {
     title: "Portfolio",
     href: "/portfolio",
-    imageSrc: "/the_been.jpg",
+    imageSrc: "/portfolioMoneyShot.png",
     children: [
-      { title: "Residential", href: "/portfolio/residential", imageSrc: "/the_been.jpg" },
-      { title: "Commercial", href: "/portfolio/commercial", imageSrc: "/the_been.jpg" },
-      { title: "Academic Work", href: "/portfolio/academic", imageSrc: "/the_been.jpg" },
+      { title: "Residential", href: "/portfolio/residential", imageSrc: "/residentialMoneyShot.png" },
+      { title: "Commercial", href: "/portfolio/commercial", imageSrc: "/commercialMoneyShot.png" },
     ],
   },
-  { title: "Artwork", href: "/artwork", imageSrc: "/the_been.jpg" },
+  { title: "Artwork", href: "/artwork", imageSrc: "/hotArtistBrittany3.jpeg" },
   { title: "Picks", href: "/picks", imageSrc: "/the_been.jpg" },
   { title: "About", href: "/about", imageSrc: "/the_been.jpg" },
-  { title: "Contact", href: "/contact", imageSrc: "/the_been.jpg" },
+  { title: "Contact", href: "/contact", imageSrc: "/hotBrittany1.jpeg" },
 ];
