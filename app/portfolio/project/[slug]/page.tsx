@@ -1,7 +1,10 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { ProjectPicksCarousel } from "@/components/project-picks-carousel";
+import {
+  ProjectPicksCarousel,
+  type ProjectPickPreview,
+} from "@/components/project-picks-carousel";
 import { sanityFetch } from "@/lib/sanity/live";
 import { urlForImage } from "@/lib/sanity/image";
 import { PROJECT_QUERY } from "@/lib/sanity/queries";
@@ -20,6 +23,25 @@ export default async function ProjectPage({
   });
 
   if (!project) return notFound();
+
+  const associatedPicks: ProjectPickPreview[] = (project.picks ?? []).flatMap(
+    (pick) => {
+      if (!pick.title || !pick.link || !pick.image) return [];
+
+      const width = pick.width && pick.width > 0 ? pick.width : 800;
+
+      return [
+        {
+          _id: pick._id,
+          title: pick.title,
+          link: pick.link,
+          imageUrl: urlForImage(pick.image).width(width).url(),
+          width: pick.width,
+          height: pick.height,
+        },
+      ];
+    },
+  );
 
   return (
     <article className="mx-auto w-full max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
@@ -120,8 +142,8 @@ export default async function ProjectPage({
           })}
         </div>
       )}
-      {Array.isArray(project.picks) && (
-        <ProjectPicksCarousel picks={project.picks} />
+      {associatedPicks.length > 0 && (
+        <ProjectPicksCarousel picks={associatedPicks} />
       )}
     </article>
   );
