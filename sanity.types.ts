@@ -22,21 +22,23 @@ export type SanityImageAssetReference = {
   [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
 };
 
-export type Pick = {
+export type Artwork = {
   _id: string;
-  _type: "pick";
+  _type: "artwork";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   title?: string;
-  link?: string;
   image?: {
     asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
     _type: "image";
   };
+  date?: string;
 };
 
 export type SanityImageCrop = {
@@ -53,6 +55,23 @@ export type SanityImageHotspot = {
   y?: number;
   height?: number;
   width?: number;
+};
+
+export type Pick = {
+  _id: string;
+  _type: "pick";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  link?: string;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
 };
 
 export type PickReference = {
@@ -220,9 +239,10 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | SanityImageAssetReference
-  | Pick
+  | Artwork
   | SanityImageCrop
   | SanityImageHotspot
+  | Pick
   | PickReference
   | SanityFileAssetReference
   | Project
@@ -322,6 +342,24 @@ export type PICKS_QUERY_RESULT = Array<{
 }>;
 
 // Source: ../designedbybeen/lib/sanity/queries.ts
+// Variable: ARTWORK_QUERY
+// Query: *[_type == "artwork"] | order(date desc, _createdAt desc){ _id, title, image, date }
+export type ARTWORK_QUERY_RESULT = Array<{
+  _id: string;
+  title: string | null;
+  image: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
+    _type: "image";
+  } | null;
+  date: string | null;
+}>;
+
+// Source: ../designedbybeen/lib/sanity/queries.ts
 // Variable: SITE_SETTINGS_QUERY
 // Query: *[_type == "siteSettings"][0]{ title, instagramUrl, tiktokUrl }
 export type SITE_SETTINGS_QUERY_RESULT = null;
@@ -332,6 +370,7 @@ declare global {
     '*[_type == "project" && category == $category] | order(publishedAt desc){ _id, title, slug, summary, coverImage }': PROJECTS_BY_CATEGORY_QUERY_RESULT;
     '*[_type == "project" && category in ["residential", "commercial"] && slug.current == $slug][0]{ _id, title, category, summary, location, architect, designer, coverImage, gallery, "videos": videos[]{ caption, "url": asset->url, "mimeType": asset->mimeType }, "picks": picks[]->{ _id, title, link, image, "width": image.asset->metadata.dimensions.width, "height": image.asset->metadata.dimensions.height } }': PROJECT_QUERY_RESULT;
     '*[_type == "pick" && defined(link) && defined(image.asset)] | order(_createdAt desc){\n    _id,\n    title,\n    link,\n    image,\n    "width": image.asset->metadata.dimensions.width,\n    "height": image.asset->metadata.dimensions.height\n  }': PICKS_QUERY_RESULT;
+    '*[_type == "artwork"] | order(date desc, _createdAt desc){ _id, title, image, date }': ARTWORK_QUERY_RESULT;
     '*[_type == "siteSettings"][0]{ title, instagramUrl, tiktokUrl }': SITE_SETTINGS_QUERY_RESULT;
   }
 }

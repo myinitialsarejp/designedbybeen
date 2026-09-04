@@ -19,6 +19,10 @@ export const PICKS_QUERY = defineQuery(
   }`,
 );
 
+export const ARTWORK_QUERY = defineQuery(
+  `*[_type == "artwork"] | order(date desc, _createdAt desc){ _id, title, image, date }`,
+);
+
 export const SITE_SETTINGS_QUERY = defineQuery(
   `*[_type == "siteSettings"][0]{ title, instagramUrl, tiktokUrl }`
 );
