@@ -10,8 +10,11 @@ export function ContactForm() {
     <form
       className="flex w-full flex-col gap-5"
       onSubmit={(event) => {
-        // No backend yet; prevent a broken navigation on submit.
         event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        // Honeypot: real users can't see this field, so a value means spam.
+        if (data.get("website")) return;
+        // No backend yet; a valid submission will be wired up later.
       }}
     >
       <div className="flex flex-col gap-2">
@@ -54,6 +57,17 @@ export function ContactForm() {
           rows={6}
           placeholder="Tell me about your project or commission."
           className={`${fieldClass} min-h-32 resize-y`}
+        />
+      </div>
+
+      <div aria-hidden="true" className="pointer-events-none absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor="website">Website</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
         />
       </div>
 

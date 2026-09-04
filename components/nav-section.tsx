@@ -16,6 +16,8 @@ export function NavSection({
   title,
   href,
   imageSrc,
+  objectPosition = "center",
+  objectZoom = 1,
   priority = false,
   contentAlignment = "left",
 }: NavSectionProps) {
@@ -64,7 +66,7 @@ export function NavSection({
 
       const viewportHeight = window.innerHeight;
       const progress = Math.min(Math.max(section.getBoundingClientRect().top / viewportHeight, 0), 1);
-      image.style.transform = `scale(${1 + progress * 0.08})`;
+      image.style.transform = `scale(${objectZoom * (1 + progress * 0.08)})`;
     };
 
     const requestScaleUpdate = () => {
@@ -85,7 +87,7 @@ export function NavSection({
         window.cancelAnimationFrame(animationFrameId);
       }
     };
-  }, []);
+  }, [objectZoom]);
 
   return (
     <li>
@@ -101,6 +103,7 @@ export function NavSection({
           fill
           priority={priority}
           sizes="100vw"
+          style={{ objectPosition, transform: `scale(${objectZoom})` }}
           className="-z-20 object-cover will-change-transform"
         />
         <div aria-hidden="true" className="absolute inset-0 -z-10 bg-black/55" />

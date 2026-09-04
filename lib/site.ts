@@ -13,6 +13,10 @@ export type NavItem = {
   title: string;
   href: string;
   imageSrc: string;
+  // CSS object-position for the home-page panel, e.g. "center", "top", "50% 30%".
+  objectPosition?: string;
+  // Zoom/crop scale for the home-page panel; 1 = no zoom, >1 crops in (e.g. 1.2).
+  objectZoom?: number;
   children?: NavItem[];
 };
 
@@ -28,6 +32,6 @@ export const mainNav: NavItem[] = [
   },
   { title: "Artwork", href: "/artwork", imageSrc: "/artworkMoneyShot.jpeg" },
   { title: "Picks", href: "/picks", imageSrc: "/the_been.jpg" },
-  { title: "About", href: "/about", imageSrc: "/the_been.jpg" },
-  { title: "Contact", href: "/contact", imageSrc: "/hotBrittany1.jpeg" },
+  { title: "About", href: "/about", imageSrc: "/hotDirectorBrittany_genexpand.png", objectPosition: "50% 40%"},
+  { title: "Contact", href: "/contact", imageSrc: "/the_been_expanded.png"},
 ];

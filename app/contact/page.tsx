@@ -13,7 +13,7 @@ export default function ContactPage() {
     <div className="grid grid-cols-1 md:min-h-[calc(100svh-4rem)] md:grid-cols-2">
       <div className="relative min-h-72 w-full md:min-h-full">
         <Image
-          src="/the_been.jpg"
+          src="/hotBrittany1.jpeg"
           alt="Designed By Been"
           fill
           sizes="(min-width: 768px) 50vw, 100vw"
