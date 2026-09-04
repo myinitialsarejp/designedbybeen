@@ -43,6 +43,7 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
   const viewportRef = useRef<HTMLDivElement>(null);
   const triggerRefs = useRef<Array<HTMLButtonElement | null>>([]);
   const [slideWidth, setSlideWidth] = useState(0);
+  const [maxSlideHeight, setMaxSlideHeight] = useState(720);
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const trackX = useMotionValue(0);
@@ -54,13 +55,20 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
 
     const updateSlideWidth = () => {
       setSlideWidth(Math.min(viewport.clientWidth * 0.72, 720));
+      // Cap slide height to the viewport so tall/portrait art never overflows the screen.
+      setMaxSlideHeight(Math.min(window.innerHeight * 0.72, 760));
     };
 
     updateSlideWidth();
     const observer = new ResizeObserver(updateSlideWidth);
     observer.observe(viewport);
 
-    return () => observer.disconnect();
+    window.addEventListener("resize", updateSlideWidth);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateSlideWidth);
+    };
   }, []);
 
   const trackOffset = (index: number) => {
@@ -221,8 +229,11 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
                   whileTap={prefersReducedMotion ? undefined : { scale: isActive ? 0.98 : 0.92 }}
                 >
                   <span
-                    className="relative block shadow-artwork"
-                    style={{ aspectRatio: artworkRatio(item) }}
+                    className="relative mx-auto block shadow-artwork"
+                    style={{
+                      aspectRatio: artworkRatio(item),
+                      width: `min(100%, ${maxSlideHeight * artworkRatio(item)}px)`,
+                    }}
                   >
                     <Image
                       src={item.imageUrl}
