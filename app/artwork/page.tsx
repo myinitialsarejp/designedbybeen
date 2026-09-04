@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { PagePlaceholder } from "@/components/page-placeholder";
+import { ArtworkCarousel } from "@/components/artwork-carousel";
 import { sanityFetch } from "@/lib/sanity/live";
 import { ARTWORK_QUERY } from "@/lib/sanity/queries";
 
@@ -10,16 +10,11 @@ export const metadata: Metadata = {
 };
 
 export default async function ArtworkPage() {
-  await sanityFetch({
+  const { data: artwork } = await sanityFetch({
     query: ARTWORK_QUERY,
     tags: ["artwork"],
     stega: false,
   });
 
-  return (
-    <PagePlaceholder
-      title="Artwork"
-      description="A collection of original artwork will live here."
-    />
-  );
+  return <ArtworkCarousel artwork={artwork} />;
 }

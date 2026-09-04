@@ -26,7 +26,7 @@ export const mainNav: NavItem[] = [
       { title: "Commercial", href: "/portfolio/commercial", imageSrc: "/commercialMoneyShot.png" },
     ],
   },
-  { title: "Artwork", href: "/artwork", imageSrc: "/hotArtistBrittany3.jpeg" },
+  { title: "Artwork", href: "/artwork", imageSrc: "/artwork.jpeg" },
   { title: "Picks", href: "/picks", imageSrc: "/the_been.jpg" },
   { title: "About", href: "/about", imageSrc: "/the_been.jpg" },
   { title: "Contact", href: "/contact", imageSrc: "/hotBrittany1.jpeg" },
