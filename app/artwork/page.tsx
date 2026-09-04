@@ -22,8 +22,6 @@ export default async function ArtworkPage() {
 
     return [{
       id: item._id,
-      title: item.title,
-      date: item.date,
       caption: item.image.caption,
       alt: item.image.alt,
       imageUrl: urlForImage(item.image).width(2400).url(),

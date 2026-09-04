@@ -13,8 +13,6 @@ import { useEffect, useRef, useState } from "react";
 
 type Artwork = {
   id: string;
-  title: string | null;
-  date: string | null;
   caption?: string;
   alt?: string;
   imageUrl: string;
@@ -25,17 +23,6 @@ type ArtworkCarouselProps = {
 };
 
 const slideGap = 16;
-
-function formatArtworkDate(date: string | null) {
-  if (!date) return null;
-
-  const formattedDate = new Intl.DateTimeFormat("en", {
-    month: "long",
-    year: "numeric",
-  }).format(new Date(`${date}T00:00:00`));
-
-  return formattedDate === "Invalid Date" ? null : formattedDate;
-}
 
 export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
   const items = artwork;
@@ -153,9 +140,6 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
   }
 
   const lightboxArtwork = lightboxIndex === null ? null : items[lightboxIndex];
-  const lightboxDate = lightboxArtwork
-    ? formatArtworkDate(lightboxArtwork.date)
-    : null;
 
   return (
     <section aria-labelledby="artwork-heading" className="py-12 sm:py-16">
@@ -200,8 +184,6 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
           >
             {items.map((item, index) => {
               const isActive = index === activeIndex;
-              const title = item.title?.trim() || "Untitled artwork";
-              const formattedDate = formatArtworkDate(item.date);
               return (
                 <motion.button
                   key={item.id}
@@ -209,7 +191,7 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
                     triggerRefs.current[index] = element;
                   }}
                   type="button"
-                  aria-label={isActive ? `Inspect ${title}` : `View ${title}`}
+                  aria-label={isActive ? "Inspect artwork" : "View artwork"}
                   aria-current={isActive ? "true" : undefined}
                   className="relative block shrink-0 cursor-pointer text-left outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
                   style={{ width: slideWidth || "72vw", maxWidth: 720 }}
@@ -225,23 +207,15 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
                   }}
                   whileTap={prefersReducedMotion ? undefined : { scale: isActive ? 0.98 : 0.92 }}
                 >
-                  <span className="relative block aspect-[4/5] overflow-hidden border border-border bg-surface-muted">
+                  <span className="relative block aspect-[4/5] overflow-hidden shadow-lg">
                     <Image
                       src={item.imageUrl}
-                      alt={item.alt || title}
+                      alt={item.alt || "Artwork"}
                       fill
                       sizes="(max-width: 640px) 72vw, (max-width: 1280px) 62vw, 720px"
                       className="object-contain"
                       priority={index < 2}
                     />
-                  </span>
-                  <span className="mt-4 block min-w-0">
-                    <span className="block truncate text-sm font-medium text-foreground">{title}</span>
-                    {formattedDate && (
-                      <span className="mt-1 block font-mono text-xs text-foreground-muted">
-                        {formattedDate}
-                      </span>
-                    )}
                   </span>
                 </motion.button>
               );
@@ -283,7 +257,7 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
             className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 p-4 sm:p-8"
             role="dialog"
             aria-modal="true"
-            aria-labelledby="lightbox-title"
+            aria-label="Artwork inspection"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -299,16 +273,6 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
               exit={{ scale: prefersReducedMotion ? 1 : 0.96, y: prefersReducedMotion ? 0 : 8 }}
             >
               <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h2 id="lightbox-title" className="text-lg font-medium text-foreground">
-                    {lightboxArtwork.title?.trim() || "Untitled artwork"}
-                  </h2>
-                  {lightboxDate && (
-                    <p className="mt-1 font-mono text-xs text-foreground-muted">
-                      {lightboxDate}
-                    </p>
-                  )}
-                </div>
                 <button
                   type="button"
                   aria-label="Close artwork inspection"
@@ -319,10 +283,10 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
                 </button>
               </div>
 
-              <div className="relative mt-4 h-[min(68vh,720px)] min-h-0">
+              <div className="relative mt-4 h-[min(68vh,720px)] min-h-0 shadow-lg">
                 <Image
                   src={lightboxArtwork.imageUrl}
-                  alt={lightboxArtwork.alt || lightboxArtwork.title || "Artwork"}
+                  alt={lightboxArtwork.alt || "Artwork"}
                   fill
                   sizes="100vw"
                   className="object-contain"
