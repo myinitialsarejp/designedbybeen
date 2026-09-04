@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 import { ArtworkCarousel } from "@/components/artwork-carousel";
+import { client } from "@/lib/sanity/client";
 import { urlForImage } from "@/lib/sanity/image";
-import { sanityFetch } from "@/lib/sanity/live";
 import { ARTWORK_QUERY } from "@/lib/sanity/queries";
 
 export const metadata: Metadata = {
@@ -11,11 +11,9 @@ export const metadata: Metadata = {
 };
 
 export default async function ArtworkPage() {
-  const { data: artwork } = await sanityFetch({
-    query: ARTWORK_QUERY,
-    tags: ["artwork"],
-    stega: false,
-  });
+  const artwork = await client
+    .withConfig({ perspective: "published", useCdn: false })
+    .fetch(ARTWORK_QUERY, {}, { next: { tags: ["artwork"] } });
 
   const artworkWithUrls = artwork.flatMap((item) => {
     if (!item.image?.asset) return [];
@@ -24,6 +22,8 @@ export default async function ArtworkPage() {
       id: item._id,
       caption: item.image.caption,
       alt: item.image.alt,
+      height: item.height,
+      width: item.width,
       imageUrl: urlForImage(item.image).width(2400).url(),
     }];
   });

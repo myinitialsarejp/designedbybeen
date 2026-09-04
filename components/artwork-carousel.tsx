@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import {
   AnimatePresence,
   animate,
@@ -11,11 +12,15 @@ import {
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import { Button } from "@/components/ui/button";
+
 type Artwork = {
   id: string;
   caption?: string;
   alt?: string;
+  height: number | null;
   imageUrl: string;
+  width: number | null;
 };
 
 type ArtworkCarouselProps = {
@@ -23,6 +28,14 @@ type ArtworkCarouselProps = {
 };
 
 const slideGap = 16;
+
+function artworkRatio(item: Artwork) {
+  if (!item.width || !item.height || item.width <= 0 || item.height <= 0) {
+    return 4 / 5;
+  }
+
+  return item.width / item.height;
+}
 
 export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
   const items = artwork;
@@ -166,7 +179,7 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
         <div
           ref={viewportRef}
           aria-label="Artwork carousel"
-          className="relative overflow-hidden"
+          className="relative overflow-hidden py-10"
         >
           <motion.div
             className="flex items-center"
@@ -207,7 +220,10 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
                   }}
                   whileTap={prefersReducedMotion ? undefined : { scale: isActive ? 0.98 : 0.92 }}
                 >
-                  <span className="relative block aspect-[4/5] overflow-hidden shadow-artwork">
+                  <span
+                    className="relative block shadow-artwork"
+                    style={{ aspectRatio: artworkRatio(item) }}
+                  >
                     <Image
                       src={item.imageUrl}
                       alt={item.alt || "Artwork"}
@@ -250,6 +266,15 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
         </div>
       </div>
 
+      <div className="mx-auto mt-10 w-full max-w-screen-2xl px-4 text-center sm:mt-12 sm:px-6 lg:px-8">
+        <p className="mx-auto max-w-xl text-base italic leading-7 text-foreground-muted">
+          Have something specific in mind? Custom art commissions are available.
+        </p>
+        <Button asChild size="lg" className="mt-5">
+          <Link href="/contact">Contact Me</Link>
+        </Button>
+      </div>
+
       <AnimatePresence>
         {lightboxArtwork && lightboxIndex !== null && (
           <motion.div
@@ -283,12 +308,18 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
                 </button>
               </div>
 
-              <div className="relative mt-2 h-[min(72vh,760px)] min-h-0 shadow-artwork">
+              <div
+                className="relative mt-2 self-center shadow-artwork"
+                style={{
+                  aspectRatio: artworkRatio(lightboxArtwork),
+                  width: `min(100%, calc(min(72vh, 760px) * ${artworkRatio(lightboxArtwork)}))`,
+                }}
+              >
                 <Image
                   src={lightboxArtwork.imageUrl}
                   alt={lightboxArtwork.alt || "Artwork"}
                   fill
-                  sizes="100vw"
+                  sizes="(min-width: 1024px) 60vw, 90vw"
                   className="object-contain"
                   priority
                 />

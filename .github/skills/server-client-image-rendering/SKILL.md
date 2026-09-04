@@ -36,6 +36,17 @@ The verified page-level pattern is:
 
 Keep these boundaries equivalent. A client component may own interaction state, but it should not be responsible for turning a Sanity image object into a URL or for repairing a missing image after hydration.
 
+## Local Sanity Debugging
+
+When a Sanity-backed page shows an empty state locally:
+
+1. Query the configured project and dataset directly with `count(*[_type == "..."])`.
+2. Run the exact GROQ query and verify the response count and `image.asset` references.
+3. Compare the Sanity API and CDN responses before assuming the query is wrong.
+4. Check the browser console for a Live Content API CORS warning. A missing `http://localhost:<port>` origin prevents live updates, but should not prevent the server-rendered initial data from appearing.
+5. If `defineLive` returns an empty initial result despite a successful direct query, use the configured Sanity client for the affected server page with `perspective: "published"`, `useCdn: false`, and the existing Next cache tag. Keep URL generation on that server boundary.
+6. Register every development origin used by the app in Sanity Manage when live updates are required, especially when the dev server falls back from port 3000 to another port.
+
 Example server shaping:
 
 ```tsx

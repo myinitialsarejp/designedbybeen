@@ -20,7 +20,7 @@ export const PICKS_QUERY = defineQuery(
 );
 
 export const ARTWORK_QUERY = defineQuery(
-  `*[_type == "artwork"] | order(date desc, _createdAt desc){ _id, title, image, date }`,
+  `*[_type == "artwork"] | order(date desc, _createdAt desc){ _id, image, "width": image.asset->metadata.dimensions.width, "height": image.asset->metadata.dimensions.height }`,
 );
 
 export const SITE_SETTINGS_QUERY = defineQuery(

@@ -45,7 +45,9 @@
   --theme-shadow-sm: none;
   --theme-shadow-md: none;
   --theme-shadow-lg: none;
-  --theme-shadow-artwork: 0 18px 30px rgb(44 38 33 / 18%);
+  --theme-shadow-artwork:
+    0 16px 32px -10px rgb(44 38 33 / 45%),
+    0 6px 14px -8px rgb(44 38 33 / 35%);
 }
 
 @theme inline {
