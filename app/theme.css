@@ -41,10 +41,11 @@
   --theme-radius-lg: 4px;
   --theme-radius-xl: 4px;
 
-  /* Flat by design: no elevation anywhere */
+  /* Flat UI surfaces; artwork uses its own restrained elevation token. */
   --theme-shadow-sm: none;
   --theme-shadow-md: none;
   --theme-shadow-lg: none;
+  --theme-shadow-artwork: 0 18px 30px rgb(44 38 33 / 18%);
 }
 
 @theme inline {
@@ -87,6 +88,7 @@
   --shadow-sm: var(--theme-shadow-sm);
   --shadow-md: var(--theme-shadow-md);
   --shadow-lg: var(--theme-shadow-lg);
+  --shadow-artwork: var(--theme-shadow-artwork);
 
   --font-sans: var(--font-sans-base);
   --font-mono: var(--font-mono-base);

@@ -207,7 +207,7 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
                   }}
                   whileTap={prefersReducedMotion ? undefined : { scale: isActive ? 0.98 : 0.92 }}
                 >
-                  <span className="relative block aspect-[4/5] overflow-hidden shadow-lg">
+                  <span className="relative block aspect-[4/5] overflow-hidden shadow-artwork">
                     <Image
                       src={item.imageUrl}
                       alt={item.alt || "Artwork"}
@@ -254,7 +254,7 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
         {lightboxArtwork && lightboxIndex !== null && (
           <motion.div
             key="artwork-lightbox"
-            className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 p-4 sm:p-8"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 p-2 sm:p-4"
             role="dialog"
             aria-modal="true"
             aria-label="Artwork inspection"
@@ -267,7 +267,7 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
             }}
           >
             <motion.div
-              className="relative flex max-h-full w-full max-w-6xl flex-col border border-border bg-surface p-4 sm:p-6"
+              className="relative flex max-h-full w-full max-w-6xl flex-col border border-border bg-surface p-2 sm:p-4"
               initial={{ scale: prefersReducedMotion ? 1 : 0.96, y: prefersReducedMotion ? 0 : 8 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: prefersReducedMotion ? 1 : 0.96, y: prefersReducedMotion ? 0 : 8 }}
@@ -276,14 +276,14 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
                 <button
                   type="button"
                   aria-label="Close artwork inspection"
-                  className="inline-flex size-11 shrink-0 items-center justify-center border border-border text-foreground outline-none hover:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring"
+                  className="inline-flex size-9 shrink-0 items-center justify-center border border-border text-foreground outline-none hover:bg-surface-muted focus-visible:ring-2 focus-visible:ring-ring"
                   onClick={() => setLightboxIndex(null)}
                 >
-                  <X aria-hidden="true" className="size-5" />
+                  <X aria-hidden="true" className="size-4" />
                 </button>
               </div>
 
-              <div className="relative mt-4 h-[min(68vh,720px)] min-h-0 shadow-lg">
+              <div className="relative mt-2 h-[min(72vh,760px)] min-h-0 shadow-artwork">
                 <Image
                   src={lightboxArtwork.imageUrl}
                   alt={lightboxArtwork.alt || "Artwork"}
@@ -295,7 +295,7 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
               </div>
 
               {lightboxArtwork.caption && (
-                <p className="mt-4 max-w-2xl text-sm leading-6 text-foreground-muted">
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-foreground-muted">
                   {lightboxArtwork.caption}
                 </p>
               )}
