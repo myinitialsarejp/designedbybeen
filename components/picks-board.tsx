@@ -18,7 +18,7 @@ export function PicksBoard({ picks }: { picks: PickPreview[] }) {
   return (
     <div className="columns-1 gap-4 sm:columns-2 lg:columns-3 xl:columns-4">
       {picks.map((pick) => {
-        if (!pick.title || !pick.image || !pick.link) {
+        if (!pick.title || !pick.image?.asset || !pick.link) {
           return null;
         }
 

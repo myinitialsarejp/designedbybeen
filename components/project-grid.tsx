@@ -27,7 +27,7 @@ export function ProjectGrid({
               href={`/portfolio/project/${project.slug?.current}`}
               className="group flex h-full flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
             >
-              {project.coverImage && (
+              {project.coverImage?.asset && (
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
                   <Image
                     src={urlForImage(project.coverImage).width(600).height(450).url()}

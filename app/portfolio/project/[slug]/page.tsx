@@ -26,7 +26,7 @@ export default async function ProjectPage({
 
   const associatedPicks: ProjectPickPreview[] = (project.picks ?? []).flatMap(
     (pick) => {
-      if (!pick.title || !pick.link || !pick.image) return [];
+      if (!pick.title || !pick.link || !pick.image?.asset) return [];
 
       const width = pick.width && pick.width > 0 ? pick.width : 800;
 
@@ -84,7 +84,7 @@ export default async function ProjectPage({
           )}
         </dl>
       )}
-      {project.coverImage && (
+      {project.coverImage?.asset && (
         <div className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-lg">
           <Image
             src={urlForImage(project.coverImage).width(1200).height(675).url()}

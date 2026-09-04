@@ -11,13 +11,17 @@ import {
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-import type { ARTWORK_QUERY_RESULT } from "@/sanity.types";
-import { urlForImage } from "@/lib/sanity/image";
-
-type Artwork = ARTWORK_QUERY_RESULT[number];
+type Artwork = {
+  id: string;
+  title: string | null;
+  date: string | null;
+  caption?: string;
+  alt?: string;
+  imageUrl: string;
+};
 
 type ArtworkCarouselProps = {
-  artwork: ARTWORK_QUERY_RESULT;
+  artwork: Artwork[];
 };
 
 const slideGap = 16;
@@ -33,14 +37,8 @@ function formatArtworkDate(date: string | null) {
   return formattedDate === "Invalid Date" ? null : formattedDate;
 }
 
-function imageUrl(artwork: Artwork, width: number) {
-  if (!artwork.image) return null;
-
-  return urlForImage(artwork.image).width(width).auto("format").url();
-}
-
 export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
-  const items = artwork.filter((item) => item.image?.asset);
+  const items = artwork;
   const prefersReducedMotion = useReducedMotion();
   const viewportRef = useRef<HTMLDivElement>(null);
   const triggerRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -204,13 +202,9 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
               const isActive = index === activeIndex;
               const title = item.title?.trim() || "Untitled artwork";
               const formattedDate = formatArtworkDate(item.date);
-              const src = imageUrl(item, isActive ? 1800 : 1200);
-
-              if (!src) return null;
-
               return (
                 <motion.button
-                  key={item._id}
+                  key={item.id}
                   ref={(element) => {
                     triggerRefs.current[index] = element;
                   }}
@@ -233,8 +227,8 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
                 >
                   <span className="relative block aspect-[4/5] overflow-hidden border border-border bg-surface-muted">
                     <Image
-                      src={src}
-                      alt={item.image?.alt || title}
+                      src={item.imageUrl}
+                      alt={item.alt || title}
                       fill
                       sizes="(max-width: 640px) 72vw, (max-width: 1280px) 62vw, 720px"
                       className="object-contain"
@@ -327,8 +321,8 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
 
               <div className="relative mt-4 h-[min(68vh,720px)] min-h-0">
                 <Image
-                  src={imageUrl(lightboxArtwork, 2400) || ""}
-                  alt={lightboxArtwork.image?.alt || lightboxArtwork.title || "Artwork"}
+                  src={lightboxArtwork.imageUrl}
+                  alt={lightboxArtwork.alt || lightboxArtwork.title || "Artwork"}
                   fill
                   sizes="100vw"
                   className="object-contain"
@@ -336,9 +330,9 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
                 />
               </div>
 
-              {lightboxArtwork.image?.caption && (
+              {lightboxArtwork.caption && (
                 <p className="mt-4 max-w-2xl text-sm leading-6 text-foreground-muted">
-                  {lightboxArtwork.image.caption}
+                  {lightboxArtwork.caption}
                 </p>
               )}
             </motion.div>
