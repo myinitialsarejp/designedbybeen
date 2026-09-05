@@ -31,8 +31,8 @@ export const mainNav: NavItem[] = [
       { title: "Commercial", href: "/portfolio/commercial", imageSrc: "/commercialMoneyShot.png" },
     ],
   },
-  { title: "Artwork", href: "/artwork", imageSrc: "/artworkMoneyShot_genexpand.png" },
-  { title: "Picks", href: "/picks", imageSrc: "/the_been.jpg"},
-  { title: "About", href: "/about", imageSrc: "/hotDirectorBrittany_genexpand.png", objectPosition: "50% 40%"},
+  { title: "Artwork", href: "/artwork", imageSrc: "/artworkMoneyShot_reduced.png" },
+  { title: "Picks", href: "/picks", imageSrc: "/picksMoneyShot_cropped.png"},
+  { title: "About", href: "/about", imageSrc: "/hotDirectorBrittany_reduced.png", objectPosition: "50% 40%"},
   { title: "Contact", href: "/contact", imageSrc: "/the_been_expanded.png"},
 ];
