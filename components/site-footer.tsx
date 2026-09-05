@@ -1,6 +1,5 @@
-import Link from "next/link";
 
-import { mainNav, siteConfig } from "@/lib/site";
+import { siteConfig } from "@/lib/site";
 
 // Brand icons are not shipped by lucide; use small inline SVGs at icon sizing.
 function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {

@@ -106,7 +106,7 @@
   --color-clay: #f0ebe1;
   --color-pantone: #572932;
 
-  --animate-fade-in: fade-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-fade-in: fade-in 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes fade-in {
