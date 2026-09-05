@@ -6,6 +6,7 @@ export const siteConfig = {
   social: {
     instagram: "https://instagram.com/designedbybeen",
     tiktok: "https://tiktok.com/@designwithbeen",
+    youtube: "https://youtube.com/@designwithbeen",
   },
 } as const;
 
