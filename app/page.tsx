@@ -10,14 +10,14 @@ export default function Home() {
       <section className="mx-auto w-full max-w-screen-2xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8">
         <div className="max-w-2xl">
           <p className="font-mono text-sm font-medium uppercase tracking-caption text-foreground-muted">
-            {siteConfig.legalName}
+            Brittany Been
           </p>
           <h1 className="mt-3 text-4xl font-semibold tracking-tighter text-foreground sm:text-5xl lg:text-6xl">
             {siteConfig.name}
           </h1>
           <p className="mt-6 text-lg leading-8 text-foreground-muted">
             A portfolio of residential and commercial design work,
-            alongside artwork, a journal, and a running list of picks.
+            alongside artwork, and a running list of picks.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Button asChild size="lg" className="w-full sm:w-auto">
