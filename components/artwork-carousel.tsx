@@ -20,6 +20,7 @@ type Artwork = {
   alt?: string;
   height: number | null;
   imageUrl: string;
+  lightboxImageUrl: string;
   width: number | null;
 };
 
@@ -327,7 +328,7 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
                 }}
               >
                 <Image
-                  src={lightboxArtwork.imageUrl}
+                  src={lightboxArtwork.lightboxImageUrl}
                   alt={lightboxArtwork.alt || "Artwork"}
                   fill
                   sizes="(min-width: 1024px) 60vw, 90vw"

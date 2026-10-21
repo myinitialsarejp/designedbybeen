@@ -22,7 +22,7 @@ export function PicksBoard({ picks }: { picks: PickPreview[] }) {
           return null;
         }
 
-        const width = pick.width && pick.width > 0 ? pick.width : 800;
+        const width = Math.min(pick.width && pick.width > 0 ? pick.width : 800, 1600);
         const imageUrl = urlForImage(pick.image).width(width).url();
         const delayMs = Math.min(visibleIndex * 60, 600);
         visibleIndex++;

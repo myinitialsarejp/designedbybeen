@@ -28,7 +28,7 @@ export default async function ProjectPage({
     (pick) => {
       if (!pick.title || !pick.link || !pick.image?.asset) return [];
 
-      const width = pick.width && pick.width > 0 ? pick.width : 800;
+      const width = Math.min(pick.width && pick.width > 0 ? pick.width : 800, 1600);
 
       return [
         {

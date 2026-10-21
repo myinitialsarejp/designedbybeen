@@ -24,7 +24,8 @@ export default async function ArtworkPage() {
       alt: item.image.alt,
       height: item.height,
       width: item.width,
-      imageUrl: urlForImage(item.image).width(2400).url(),
+      imageUrl: urlForImage(item.image).width(1600).url(),
+      lightboxImageUrl: urlForImage(item.image).width(2400).url(),
     }];
   });
 
