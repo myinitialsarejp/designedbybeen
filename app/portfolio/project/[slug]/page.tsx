@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
+import { ProjectVideo } from "@/components/project-video";
 import {
   ProjectPicksCarousel,
   type ProjectPickPreview,
@@ -23,6 +24,13 @@ export default async function ProjectPage({
   });
 
   if (!project) return notFound();
+
+  const videoPosterImage = project.coverImage?.asset
+    ? project.coverImage
+    : project.gallery?.find((image) => image.asset);
+  const videoPosterUrl = videoPosterImage
+    ? urlForImage(videoPosterImage).width(800).height(450).url()
+    : undefined;
 
   const associatedPicks: ProjectPickPreview[] = (project.picks ?? []).flatMap(
     (pick) => {
@@ -99,9 +107,11 @@ export default async function ProjectPage({
           {project.videos.map((video, index) =>
             video.url ? (
               <figure key={video.url ?? index}>
-                <video className="w-full rounded-lg" controls src={video.url}>
-                  Your browser does not support the video tag.
-                </video>
+                <ProjectVideo
+                  src={video.url}
+                  posterUrl={videoPosterUrl}
+                  label={video.caption || `${project.title || "Project"} video ${index + 1}`}
+                />
                 {video.caption && (
                   <figcaption className="mt-2 text-sm text-foreground-muted">
                     {video.caption}
