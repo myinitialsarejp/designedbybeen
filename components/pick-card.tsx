@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { Info } from "lucide-react";
 import { useState } from "react";
 
+import { SanityImage } from "@/components/sanity-image";
 import { Button } from "@/components/ui/button";
 import {
   HoverCard,
@@ -41,7 +41,7 @@ export function PickCard({
           aria-label={`Open ${title}`}
           className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring"
         >
-          <Image
+          <SanityImage
             src={imageUrl}
             alt={title}
             width={imageWidth}

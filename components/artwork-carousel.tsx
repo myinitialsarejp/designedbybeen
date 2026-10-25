@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import {
   AnimatePresence,
@@ -12,6 +11,7 @@ import {
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import { SanityImage } from "@/components/sanity-image";
 import { Button } from "@/components/ui/button";
 
 type Artwork = {
@@ -236,7 +236,7 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
                       width: `min(100%, ${maxSlideHeight * artworkRatio(item)}px)`,
                     }}
                   >
-                    <Image
+                    <SanityImage
                       src={item.imageUrl}
                       alt={item.alt || "Artwork"}
                       fill
@@ -327,7 +327,7 @@ export function ArtworkCarousel({ artwork }: ArtworkCarouselProps) {
                   width: `min(100%, calc(min(72vh, 760px) * ${artworkRatio(lightboxArtwork)}))`,
                 }}
               >
-                <Image
+                <SanityImage
                   src={lightboxArtwork.lightboxImageUrl}
                   alt={lightboxArtwork.alt || "Artwork"}
                   fill
