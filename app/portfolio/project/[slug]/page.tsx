@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { ProjectVideo } from "@/components/project-video";
@@ -6,6 +5,7 @@ import {
   ProjectPicksCarousel,
   type ProjectPickPreview,
 } from "@/components/project-picks-carousel";
+import { SanityImage } from "@/components/sanity-image";
 import { sanityFetch } from "@/lib/sanity/live";
 import { urlForImage } from "@/lib/sanity/image";
 import { PROJECT_QUERY } from "@/lib/sanity/queries";
@@ -94,7 +94,7 @@ export default async function ProjectPage({
       )}
       {project.coverImage?.asset && (
         <div className="relative mt-8 aspect-[16/9] w-full overflow-hidden rounded-lg">
-          <Image
+          <SanityImage
             src={urlForImage(project.coverImage).width(1200).height(675).url()}
             alt={project.title ?? ""}
             fill
@@ -130,7 +130,7 @@ export default async function ProjectPage({
             return (
               <figure key={image._key} className="relative">
                 <div className="relative aspect-[4/3] w-full overflow-hidden rounded-lg">
-                  <Image
+                  <SanityImage
                     src={urlForImage(image).width(800).height(600).url()}
                     alt={image.alt ?? project.title ?? ""}
                     fill

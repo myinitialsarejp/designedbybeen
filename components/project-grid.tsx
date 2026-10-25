@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 
+import { SanityImage } from "@/components/sanity-image";
 import { urlForImage } from "@/lib/sanity/image";
 import type { PROJECTS_BY_CATEGORY_QUERY_RESULT } from "@/sanity.types";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
@@ -29,7 +29,7 @@ export function ProjectGrid({
             >
               {project.coverImage?.asset && (
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
-                  <Image
+                  <SanityImage
                     src={urlForImage(project.coverImage).width(600).height(450).url()}
                     alt={project.title ?? ""}
                     fill

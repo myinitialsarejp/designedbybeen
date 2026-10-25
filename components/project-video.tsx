@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { Play } from "lucide-react";
 import { useRef, useState } from "react";
 
+import { SanityImage } from "@/components/sanity-image";
 import { Button } from "@/components/ui/button";
 
 type ProjectVideoProps = {
@@ -44,7 +44,7 @@ export function ProjectVideo({ src, posterUrl, label }: ProjectVideoProps) {
       {!activated && (
         <>
           {posterUrl && (
-            <Image
+            <SanityImage
               src={posterUrl}
               alt=""
               fill
